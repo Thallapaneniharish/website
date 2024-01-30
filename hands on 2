@@ -58,14 +58,17 @@ def selection_sort(arr):
 def insertion_sort(arr):
     # Your insertion sort implementation here
     pass
+def bubble_sort(arr):
+    # Your insertion sort implementation here
+    pass
 
 # Function to generate random arrays of different sizes
 def generate_arrays():
     for size in [5, 10, 20, 50, 100, 200, 500, 1000, 2000]:
         yield np.random.rand(size)
 
-algorithms = [selection_sort, insertion_sort]
-labels = ['Selection Sort', 'Insertion Sort']
+algorithms = [selection_sort, insertion_sort, bubble_sort]
+labels = ['Selection Sort', 'Insertion Sort','Bubble Sort']
 
 for algo, label in zip(algorithms, labels):
     runtimes = []
