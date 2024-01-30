@@ -1,47 +1,83 @@
-Insertion sort:
 def insertion_sort(arr):
- for i in range(1, len(arr)):
- key = arr[i]
- j = i - 1
- while j >= 0 and key < arr[j]:
- arr[j + 1] = arr[j]
- j -= 1
- arr[j + 1] = key
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and key < arr[j]:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
+
 # Example usage:
 my_list = [12, 11, 13, 5, 6]
 insertion_sort(my_list)
 print("Sorted array:", my_list)
-# Example usage:
-My list=[20, 10, 22, 12, 34, 767, 568, 4534, 2, 87, 7567]
-insertion_sort(my_list)
-print("Sorted array:", my_list)
-Selection sort:
+
 def selection_sort(arr):
- n = len(arr)
- for i in range(n):
- # Find the minimum element in the remaining unsorted array
- min_index = i
- for j in range(i + 1, n):
- if arr[j] < arr[min_index]:
- min_index = j
- # Swap the found minimum element with the first element
- arr[i], arr[min_index] = arr[min_index], arr[i]
+    n = len(arr)
+    for i in range(n):
+        # Find the minimum element in the remaining unsorted array
+        min_index = i
+        for j in range(i + 1, n):
+            if arr[j] < arr[min_index]:
+                min_index = j
+
+        # Swap the found minimum element with the first element
+        arr[i], arr[min_index] = arr[min_index], arr[i]
+
 # Example usage:
 my_list = [64, 25, 12, 22, 11]
 selection_sort(my_list)
 print("Sorted array:", my_list)
-Bubble sort:
-def bubble_sort(arr):
- n = len(arr)
 
- # Traverse through all array elements
- for i in range(n):
- # Last i elements are already in place, so we don't need to check them
- for j in range(0, n - i - 1):
- # Swap if the element found is greater than the next element
- if arr[j] > arr[j + 1]:
- arr[j], arr[j + 1] = arr[j + 1], arr[j]
+
+def bubble_sort(arr):
+    n = len(arr)
+    
+    # Traverse through all array elements
+    for i in range(n):
+        # Last i elements are already in place, so we don't need to check them
+        for j in range(0, n - i - 1):
+            # Swap if the element found is greater than the next element
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+
 # Example usage:
 my_list = [64, 34, 25, 12, 22, 11, 90]
 bubble_sort(my_list)
 print("Sorted array:", my_list)
+
+
+import timeit
+import matplotlib.pyplot as plt
+import numpy as np
+
+def selection_sort(arr):
+    # Your selection sort implementation here
+    pass
+
+def insertion_sort(arr):
+    # Your insertion sort implementation here
+    pass
+
+# Function to generate random arrays of different sizes
+def generate_arrays():
+    for size in [5, 10, 20, 50, 100, 200, 500, 1000, 2000]:
+        yield np.random.rand(size)
+
+algorithms = [selection_sort, insertion_sort]
+labels = ['Selection Sort', 'Insertion Sort']
+
+for algo, label in zip(algorithms, labels):
+    runtimes = []
+    for array in generate_arrays():
+        # Measure the execution time of the sorting algorithm
+        time = timeit.timeit(lambda: algo(array.copy()), number=1000)
+        runtimes.append(time)
+
+    # Plot the results
+    plt.plot([5, 10, 20, 50, 100, 200, 500, 1000, 2000], runtimes, label=label)
+
+plt.xlabel('Input Size (n)')
+plt.ylabel('Execution Time (s)')
+plt.legend()
+plt.show()
